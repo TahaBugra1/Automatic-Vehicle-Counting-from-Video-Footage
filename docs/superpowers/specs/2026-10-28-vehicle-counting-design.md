@@ -1,7 +1,7 @@
 # Video Görüntülerinden Otomatik Araç Sayımı: Tasarım
 
 Tarih: 2026-10-28
-Durum: Taslak, onay bekliyor
+Durum: Onaylandı (2026-10-28)
 İlgili belge: `docs/requirements.md` (fonksiyonel ve fonksiyonel olmayan gereksinimler)
 
 ## 1. Amaç ve neden

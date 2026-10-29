@@ -8,7 +8,7 @@ Proje: Video Görüntülerinden Otomatik Araç Sayımı (Grup 31 - VisionFlow)
 |---|---|---|
 | FR-1 | Kullanıcı 1–5 trafik videosu yükleyebilmeli (izin verilen uzantılar: MP4 vb.). | Zorunlu |
 | FR-2 | Sistem dosya türünü ve boyutunu (en çok 500 MB) denetlemeli, geçersiz dosyayı anlaşılır bir hata ile reddetmeli. | Zorunlu |
-| FR-3 | İlk videonun önizleme karesi gösterilmeli; kullanıcı sanal sayım çizgisini sürükleyerek belirleyebilmeli. | Zorunlu |
+| FR-3 | Her videonun önizleme karesi gösterilmeli; kullanıcı her video için ayrı sanal sayım çizgisini sürükleyerek belirleyebilmeli. Çizgi yönlüdür (ok gösterilir) ve kullanıcı yönü tersine çevirebilir. | Zorunlu |
 | FR-4 | Çizgi koordinatları çözünürlükten bağımsız (0–1 aralığında) saklanmalı. | Zorunlu |
 | FR-5 | Sistem her karede otomobil, otobüs, kamyon ve motosikleti tespit etmeli (YOLO11, COCO sınıfları). | Zorunlu |
 | FR-6 | Tespitler ByteTrack ile kareler boyunca takip kimliğine bağlanmalı. | Zorunlu |
@@ -19,7 +19,11 @@ Proje: Video Görüntülerinden Otomatik Araç Sayımı (Grup 31 - VisionFlow)
 | FR-11 | Çıktı olarak tespit kutuları, çizgi ve sayaçlar çizilmiş, tarayıcıda oynatılabilir H.264 MP4 üretilmeli. | Zorunlu |
 | FR-12 | CSV çıktısında geçiş karesi, zaman, takip kimliği, araç sınıfı, yön ve özet metrikler yer almalı. | Zorunlu |
 | FR-13 | Her video için sonuç kartı gösterilmeli (iki yönlü sayaç, sınıf bazlı toplam, motosiklet dahil); video ve CSV indirilebilmeli. | Zorunlu |
-| FR-14 | Sistem sayımı UA-DETRAC gerçek etiketleriyle karşılaştırıp video bazlı hata, toplam sayım hatası ve FPS raporlayabilmeli. | Önemli |
+| FR-14 | Sistem sayımı UA-DETRAC gerçek etiketleriyle karşılaştırıp video bazlı hata, toplam sayım hatası ve FPS raporlayabilmeli. İşaretli geçişlerin kalitesi de ölçülmeli. | Önemli |
+| FR-15 | Sonuç kartında zamana göre dağılım (varsayılan dakikalık aralık) ve sınıfa göre dağılım gösterilmeli. | Zorunlu |
+| FR-16 | Sistem şüpheli geçişleri (olası kaçırılan araç, olası çift sayım, kararsız geçiş, zayıf tespit, sınıf belirsiz, kalabalık geçiş) işaretlemeli; her biri zaman ve nedenle listelenmeli, tıklayınca işaretli videoda o ana atlanmalı. | Zorunlu |
+| FR-17 | Toplam sayı belirsizlikle birlikte gösterilmeli: "222 araç (3 fazla, 4 eksik olabilir)". Olası kaçırılan araçlar toplama dahil edilmemeli. | Zorunlu |
+| FR-18 | Her video için işaretli geçiş oranına göre üç seviyeli (yüksek/orta/düşük) güvenilirlik rozeti gösterilmeli; eşikler yapılandırma dosyasında tutulmalı. | Zorunlu |
 
 ## Fonksiyonel Olmayan Gereksinimler (NFR)
 
@@ -44,7 +48,7 @@ Proje: Video Görüntülerinden Otomatik Araç Sayımı (Grup 31 - VisionFlow)
 ## MVP Kapsamı
 
 MVP'ye dahil:
-- FR-1 … FR-13 (yükleme, çizgi ayarı, tespit, takip, sayım, video ve CSV çıktısı, sonuç kartı)
+- FR-1 … FR-13, FR-15 … FR-18 (yükleme, video başına çizgi ayarı, tespit, takip, sayım, video ve CSV çıktısı, sonuç kartı, zamana ve sınıfa göre dağılım, şüpheli geçişler, belirsizlik gösterimi, güvenilirlik rozeti)
 - FR-9 (model ve güven eşiği seçimi)
 - FR-14, **değerlendirme betiği olarak**: UA-DETRAC etiketleriyle video bazlı ve toplam sayım hatası ile FPS ölçümü. Arayüzde karşılaştırma ekranı MVP'de yoktur.
 - NFR-1 … NFR-10

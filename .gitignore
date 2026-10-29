@@ -1,1 +1,15 @@
 Hafta3_Proje_Raporu_.docx
+.superpowers/
+.venv/
+outputs/
+uploads/
+*.pt
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+*.egg-info/
+*.tmp
+.playwright-mcp/
+rapor*.csv
+reports/

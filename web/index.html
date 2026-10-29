@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Araç Sayımı / Vehicle Counting</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="app.title">Araç Sayımı</a>
+  <header class="topbar">
+    <div>
+      <h1 data-i18n="app.title">Araç Sayımı</h1>
+      <p class="muted" data-i18n="app.subtitle">Video görüntülerinden otomatik araç sayımı</p>
+    </div>
+    <div class="lang">
+      <label for="lang" data-i18n="lang.label">Dil</label>
+      <select id="lang">
+        <option value="tr" data-i18n="lang.tr">Türkçe</option>
+        <option value="en" data-i18n="lang.en">English</option>
+      </select>
+    </div>
+  </header>
+
+  <div id="alerts" class="alerts" role="alert" aria-atomic="false"></div>
+  <div id="live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <main id="main" class="layout">
+    <section class="panel left" aria-labelledby="preview-h">
+      <h2 id="preview-h" data-i18n="preview.heading">Önizleme ve sayım çizgisi</h2>
+      <p id="preview-empty" class="muted" data-i18n="preview.empty">Başlamak için sağdan video ekleyin.</p>
+      <div id="editor" hidden>
+        <p id="preview-help" class="muted" data-i18n="preview.help"></p>
+        <div id="stage" class="stage">
+          <img id="frame" alt="" data-i18n-alt="preview.alt" draggable="false">
+          <svg id="overlay" class="overlay" role="group" data-i18n-aria-label="preview.svgLabel"
+               aria-describedby="preview-help" preserveAspectRatio="none"></svg>
+        </div>
+        <div class="row">
+          <button type="button" id="flip" data-i18n="line.flip">Yönü çevir</button>
+          <button type="button" id="reset" class="secondary" data-i18n="line.reset">Çizgiyi sıfırla</button>
+          <span id="line-state" class="badge-note"></span>
+        </div>
+      </div>
+
+      <h3 id="videos-h" data-i18n="videos.heading">Yüklenen videolar</h3>
+      <p id="videos-empty" class="muted" data-i18n="videos.empty">Henüz video yok.</p>
+      <ul id="videos" class="videos" aria-labelledby="videos-h"></ul>
+    </section>
+
+    <aside class="panel right" aria-labelledby="settings-h">
+      <h2 id="settings-h" data-i18n="settings.heading">Ayarlar</h2>
+
+      <div class="field">
+        <label for="model" data-i18n="settings.model">Model</label>
+        <select id="model" aria-describedby="model-help model-gpu">
+          <option value="yolo11n.pt">yolo11n</option>
+          <option value="yolo11s.pt" selected>yolo11s</option>
+          <option value="yolo11m.pt">yolo11m</option>
+        </select>
+        <p id="model-help" class="muted small" data-i18n="settings.modelHelp"></p>
+        <p id="model-gpu" class="muted small" data-i18n="settings.noGpu" hidden></p>
+      </div>
+
+      <div class="field">
+        <label for="conf" data-i18n="settings.confidence">Güven eşiği</label>
+        <div class="row tight">
+          <input id="conf-range" type="range" min="0.05" max="0.95" step="0.05" value="0.25"
+                 data-i18n-aria-label="settings.confidence">
+          <input id="conf" type="number" min="0.05" max="0.95" step="0.05" value="0.25"
+                 aria-describedby="conf-help">
+        </div>
+        <p id="conf-help" class="muted small" data-i18n="settings.confidenceHelp"></p>
+      </div>
+
+      <div class="field">
+        <span id="add-label" class="label" data-i18n="settings.add">Video ekle</span>
+        <label id="drop" class="drop" for="files">
+          <span data-i18n="settings.drop">Videoları buraya bırakın ya da seçmek için tıklayın</span>
+        </label>
+        <input id="files" class="sr-only-input" type="file" multiple
+               accept=".mp4,.mov,.avi,.mkv,video/*" aria-describedby="add-help"
+               data-i18n-aria-label="settings.files">
+        <p id="add-help" class="muted small" data-i18n="settings.addHelp"></p>
+      </div>
+
+      <button type="button" id="start" class="primary" data-i18n="start.button">Sayımı başlat</button>
+    </aside>
+  </main>
+
+  <section class="panel results" aria-labelledby="jobs-h">
+    <h2 id="jobs-h" data-i18n="jobs.heading">Sonuçlar</h2>
+    <div id="jobs" class="jobs"></div>
+  </section>
+
+  <script src="/static/i18n.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

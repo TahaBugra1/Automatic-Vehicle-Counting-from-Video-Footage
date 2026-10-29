@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "visionflow"
+version = "0.1.0"
+description = "Automatic vehicle counting from video footage"
+requires-python = ">=3.11"
+# Direct dependencies pinned to the versions this project was tested with (NFR-9).
+# To upgrade: change a pin, reinstall (`pip install -e ".[dev]"`) and run the test suite.
+dependencies = [
+    "fastapi==0.162.0",
+    "uvicorn[standard]==0.54.0",
+    "python-multipart==0.0.32",
+    "ultralytics==8.4.191",
+    "opencv-python==5.0.0.93",
+    "imageio-ffmpeg==0.7.0",
+    "numpy==2.5.4",
+    "lap==0.5.13",
+    "PyYAML==6.0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.2.0",
+    "pytest-cov==7.1.0",
+    "httpx==0.28.1",
+    "ruff==0.17.3",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-m 'not slow'"
+filterwarnings = [
+    "ignore:Using `httpx` with `starlette.testclient`:UserWarning",
+]
+markers = [
+    "slow: needs a real YOLO model and a sample video (VISIONFLOW_SAMPLE_VIDEO)",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
